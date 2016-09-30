@@ -1,0 +1,82 @@
+Path: bga.com!news.sprintlink.net!howland.reston.ans.net!vixen.cso.uiuc.edu!newsfeed.ksu.ksu.edu!moe.ksu.ksu.edu!crcnis1.unl.edu!herbie.unl.edu!jepler
+From: jepler@herbie.unl.edu (Jeff "Obik" Epler)
+Newsgroups: alt.folklore.computers,alt.lang.intercal,comp.lang.misc
+Subject: [ANNOUNCE] Orthagonal v.no-number
+Followup-To: comp.lang.misc
+Date: 23 Sep 1994 05:35:16 GMT
+Organization: University of Nebraska--Lincoln   
+Lines: 66
+Message-ID: <35tpek$ffb@crcnis1.unl.edu>
+NNTP-Posting-Host: herbie.unl.edu
+Summary: A new language that will grow hair on the bottoms of your toes
+Keywords: orthagonal language announce
+Xref: bga.com alt.folklore.computers:24326 alt.lang.intercal:207 comp.lang.misc:2837
+
+
+
+(crossposted to alt.folklore.computers, alt.lang.intercal, and
+comp.lang.misc -- followups to comp.lang.misc, for want of a better
+place.  comp.lang.purgatory, maybe?)
+
+Announcing: Orthagonal v.no-number
+
+A two-dimensional stack-based language, created during an afternoon when
+I ran a fever of 101 degrees.  (Or somewhat less, in celcius)
+
+You can get orthagonal.shar from alt.sources, or you can request it in mail
+from the author (me) by mailing to jep...@herbie.unl.edu .  To get a speedy
+response, mention 'orthagonal' and 'request' in the subject: line.
+
+
+This is an abbreviated version of the README contained in orthagonal.shar:
+--------------------------------------------------------------------------
+Recently, in alt.folklore.computers, there have been discussions about a
+language that would be 2 dimensional in nature.  This is my attempt at
+writing such a language.
+
+Please forgive the fact that this is hardly 'documentation'.
+
+A program in Orthagonal has two parts:
+1) The grid.
+2) The stack.
+
+When the Orthagonal interpreter is invoked, the grid is read from standard
+input, the PC is loaded with (0,0),(1,0) and the stack is initialized to be
+empty.  The bottom row of the grid, (0,255)(1,0) is loaded with up to 256
+characters from argv[1].
+
+(The format of the PC is (grid coordinate),(delta coordinate))
+
+Then, the interpreter performs the following steps:
+1) Interpret the contents of the current grid coordinate
+ a) If the element is an operator, perform the action associated with
+    the operator
+ b) If the element is a quantity, push the quantity onto the stack (The stack
+    can hold at most 256 elements)
+2) Add the delta coordinate to the grid coordinate, wrap around if
+necessary. (The grid size is 256x256 -- I wonder if this will be adequate?)
+3) go to 1
+
+Program execution terminates when there is a stack underflow, or when the
+RET operator returns the top element of the stack as a result code to the
+operating system
+
+[...]
+
+Enjoy.  (Or, as we say, spok dein fifi)
+
+Feel free to contact me at jep...@herbie.unl.edu if you have any comments about
+this language.
+
+I hope to hear soon that an enlightenend computer science teacher will
+use this language in one of his 100-level comp sci courses, instead of pascal.
+After all, the looping constructs are very elegant.  (Yes, I've been waiting
+all day to say that)
+
+Jeff Epler
+the reluctant creator of orthagonal
+--
+____ "And if I smile please tell me some bad news
+\BI/  before I laugh and act like a fool"
+ \/            -The Who "Behind Blue Eyes"
+grep -vi obik       Running Linux 1.1 -- Free Unix for 386+ machines
