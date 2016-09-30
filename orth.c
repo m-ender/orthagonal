@@ -98,10 +98,10 @@ int parse_element(const char *e)  {
 }
 
 int parse(FILE *f)  {
-  char line[80];
+  char line[255];
   int lnum=0;
   int x,y;
-  char element[80];
+  char element[sizeof(line)];
   
   while(!feof(f))  {
     fgets(line,sizeof(line),f);
