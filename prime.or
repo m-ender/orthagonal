@@ -1,0 +1,131 @@
+; Copyright 1994, Jeff Epler
+; You may use this file in any way you desire.  There are no warranties, etc,
+; etc.
+; Prints either 'Prime' or the smallest prime divisor of the argument
+0 0 l
+1 0 0
+2 0 254
+3 0 255
+4 0 #
+; (255,254) holds our 'running total'
+5 0 0
+6 0 254
+7 0 254
+; (254,254) holds our index into the argument
+8 0 0
+9 0 ?
+10 0 cw
+; This is the entry point, when we return to the 'loop'.
+11 0 254
+12 0 255
+13 0 =
+14 0 10
+15 0 *
+; Multiply old total by 10
+16 0 255
+17 0 254
+18 0 254
+19 0 =
+20 0 =
+21 0 '0
+22 0 -
+23 0 +
+; add the converted character from index
+24 0 254
+25 0 255
+26 0 #
+27 0 cw
+27 1 cw
+; store it
+26 1 254
+25 1 254
+24 1 =
+23 1 1
+22 1 +
+21 1 @
+; This duplicate is for below, where we check for nul
+20 1 254
+19 1 254
+18 1 #
+; increment index
+17 1 255
+16 1 ~
+15 1 =
+14 1 nop
+13 1 nop
+12 1 nop
+11 1 ?
+10 1 cw
+; if index points to nul, go to where to prime part 
+; else loop
+9 1 ccw
+9 2 2
+9 3 254
+9 4 254
+9 5 #
+; n
+; Store initial divisor of 2
+9 6 254
+9 7 255
+9 8 =
+9 9 0
+9 10 ?
+9 11 ccw
+; Re-entry point for loop
+; Get number on stack
+9 12 @
+; n n
+9 13 254
+9 14 254
+9 15 =
+9 16 -
+9 17 !
+9 18 ?
+9 19 cw
+; If divisor and number are equal, print 'Prime'
+8 19 0
+7 19 'e
+6 19 'm
+5 19 'i
+4 19 'r
+3 19 'P
+2 19 s
+1 19 0
+0 19 c
+255 19 0
+254 19 ret
+; else test division
+9 20 @
+; n n
+9 21 254
+9 22 254
+9 23 =
+; n n d
+9 24 ccw
+10 24 ccw
+10 23 %
+10 22 !
+10 21 ?
+10 20 cw
+; If mod == 0, that's a factor
+11 20 254
+12 20 254
+13 20 =
+14 20 d
+15 20 0
+16 20 c
+17 20 0
+18 20 ret
+; else increment divisor
+; n
+10 19 254
+10 18 254
+10 17 =
+10 16 1
+10 15 +
+10 14 254
+10 13 254
+10 12 #
+; and loop
+10 11 ccw
+ 

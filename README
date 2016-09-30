@@ -1,0 +1,124 @@
+Copyright 1994, Jeff Epler
+You may use this file in any way you desire.  There are no warranties, etc,
+etc.
+In fact, don't even bother keeping my name on this.  It'll help free me from
+blame.
+
+This document describes the Orthagonal language.
+
+Recently, in alt.folklore.computers, there have been discussions about a
+language that would be 2 dimensional in nature.  This is my attempt at
+writing such a language.
+
+Please forgive the fact that this is hardly 'documentation'.
+
+A program in Orthagonal has two parts:
+1) The grid.
+2) The stack.
+
+When the Orthagonal interpreter is invoked, the grid is read from standard
+input, the PC is loaded with (0,0),(1,0) and the stack is initialized to be
+empty.  The bottom row of the grid, (0,255)(1,0) is loaded with up to 256
+characters from argv[1].
+
+(The format of the PC is (grid coordinate),(delta coordinate))
+
+Then, the interpreter performs the following steps:
+1) Interpret the contents of the current grid coordinate
+ a) If the element is an operator, perform the action associated with
+    the operator
+ b) If the element is a quantity, push the quantity onto the stack (The stack
+    can hold at most 256 elements)
+2) Add the delta coordinate to the grid coordinate, wrap around if
+necessary. (The grid size is 256x256 -- I wonder if this will be adequate?)
+3) go to 1
+
+Program execution terminates when there is a stack underflow, or when the
+RET operator returns the top element of the stack as a result code to the
+operating system
+
+All quantities are 32 bit signed.  (Well, actually, they're the size of your
+compiler's int until you change the definition of s32)
+
+These are the operators: 
+NOP do nothing
++ add top two elements on the stack and push result
+- subtract the top element from the second element
+* multiply top two elements
+/ divide second element by top element, result is integer quotient
+% divide second element by top element, result is integer remainder
+~ Exchange top two stack elements
+! Perform logical NOT on top stack element
+& Perform binary AND on top two stack elements
+| Perform binary OR on two top stack elements
+^ Perform binary XOR on two top stack elements
+@ Duplicate top stack element
+$ discard top stack element
+= Push an absolute element -- Top of stack names x, second on stack names y
+# Set an absolute element -- Top of stack names x, second on stack names y,
+  third on stack names value to store
+? if top element is zero, add (delta coordinate) to (grid coordinate) (Net
+  effect is a double-step)
+dx Load the delta coordinate X with the top stack value
+dy Load the delta coordinate Y with the top stack value
+x Load the grid coordinate X with the top stack value
+y Load the grid coordinate Y with the top stack value
+c Output the top stack element as a character, or newline if character is 0
+s Output stack elements as characters until a 0 is popped, then output a
+  newline
+d Output top stack element as a decimal quantity
+ccw Change delta coordinate: (dx,dy) becomes (-dy,dx)
+cw Change delta coordinate: (dx,dy) becomes (dy,-dx)
+rev Change delta coordinate: (dx,dy) becomes (-dx,-dy)
+h Delta coordinate becomes (-1,0)
+j Delta coordinate becomes (0,1)
+k Delta coordinate becomes (0,-1)
+l Delta coordinate becomes (1,0)
+
+ret Terminate execution.  Return top stack element to OS
+
+In the input file:
+;comment lines begin with a semicolon
+;other lines have the form:
+x y element
+
+where x and y are integers in the valid range, and element is one of:
+1) An integer quantity
+ -1
+ 0
+ 36
+ etc.
+2) A character, enclosed in single quotes
+ 'a'
+ 'z'
+ '0'
+ etc.
+3) An operator
+ ccw
+ +
+ -
+ etc.
+
+If a line can't be figured out by the parser, parsing stops and the number
+of the line is printed.  Informative error messages are out of the scope of
+the interpreter.
+
+To run a program:
+orth [arg] < program.or
+gorth [arg] < program.or
+
+gorth is like orth, except it prints debuggering info about the input file and
+subsequent execution.
+
+Enjoy.  (Or, as we say, spok dein fifi)
+
+Feel free to contact me at jepler@herbie.unl.edu if you have any comments about
+this language.
+
+I hope to hear soon that an enlightenend computer science teacher will
+use this language in one of his 100-level comp sci courses, instead of pascal.
+After all, the looping constructs are very elegant.  (Yes, I've been waiting
+all day to say that)
+
+Jeff Epler
+the reluctant creator of orthagonal

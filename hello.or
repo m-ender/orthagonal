@@ -1,0 +1,23 @@
+; Copyright 1994, Jeff Epler
+; You may use this file in any way you desire.  There are no warranties, etc,
+; etc.
+; Prints 'hello world'  -- For some reason, the commented line for 7 0 doesn't
+; work
+0 0 0
+1 0 0
+2 0 'd'
+3 0 'l'
+4 0 'r'
+5 0 'o'
+6 0 'w'
+7 0 32
+; 7 0 ' '
+8 0 'o'
+9 0 'l'
+10 0 'l'
+11 0 'e'
+12 0 'h'
+13 0 s
+14 0 c
+15 0 0
+16 0 ret
