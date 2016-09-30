@@ -107,7 +107,7 @@ int parse(FILE *f)  {
     fgets(line,sizeof(line),f);
     lnum++;
     if(line[strlen(line)-1]!='\n')  {
-      fprintf(stderr,"Warning: Long line %d",lnum);
+      fprintf(stderr,"Warning: Long line %d\n",lnum);
       while(fgetc(f)!='\n') /* NOTHING */ ;
       line[79]='\n';
     }
