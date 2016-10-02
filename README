@@ -1,3 +1,9 @@
+This repository contains the original specification, interpreter code 
+and example programs of the 1994 language Orthagonal, kindly provided 
+by Jeff Epler. The remainder of this document is the original README.
+
+--------------------------------------------------------------------------------
+
 This document describes the Orthagonal language.
 
 Recently, in alt.folklore.computers, there have been discussions about a
